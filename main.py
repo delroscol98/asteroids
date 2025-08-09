@@ -33,7 +33,7 @@ def main():
 
         # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
-
+        player.update(dt)
 # this line ensures the main() function
 # is only called when this file is
 # run directly; it won't run if it's 
