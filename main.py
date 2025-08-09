@@ -21,6 +21,10 @@ def main():
     dt = 0
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+    
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
     player = Player(x, y)
 
     while True:
@@ -28,12 +32,13 @@ def main():
             if event.type == pygame.QUIT:
                 return
         pygame.Surface.fill(screen, (0, 0, 0))
-        player.draw(screen)
+        for el in drawable:
+            el.draw(screen)
         pygame.display.flip()
 
         # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
-        player.update(dt)
+        updatable.update(dt)
 # this line ensures the main() function
 # is only called when this file is
 # run directly; it won't run if it's 
