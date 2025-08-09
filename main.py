@@ -7,27 +7,7 @@ import pygame
 # constants.py into the current file
 from constants import *
 
-# Base class for game objects
-class CircleShape(pygame.sprite.Sprite):
-    def __init__(self, x, y, radius):
-        # we will be using this later
-        if hasattr(self, "containers"):
-            super().__init__(self.containers)
-        else:
-            super().__init__()
-
-        self.position = pygame.Vector2(x, y)
-        self.velocity = pygame.Vector2(0, 0)
-        self.radius = radius
-
-    def draw(self, screen):
-        # sub-classes must override
-        pass
-
-    def update(self, dt):
-        # sub-classes must override
-        pass
-
+from player import Player
 
 def main():
     print("Starting Asteroids!")
@@ -36,15 +16,22 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    
     clock = pygame.time.Clock()
     dt = 0
+    x = SCREEN_WIDTH / 2
+    y = SCREEN_HEIGHT / 2
+    player = Player(x, y)
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         pygame.Surface.fill(screen, (0, 0, 0))
+        player.draw(screen)
         pygame.display.flip()
+
+        # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
 
 # this line ensures the main() function
