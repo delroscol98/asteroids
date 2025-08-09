@@ -12,6 +12,16 @@ def main():
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
 
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+        pygame.Surface.fill(screen, (0, 0, 0))
+        pygame.display.flip()
+
 # this line ensures the main() function
 # is only called when this file is
 # run directly; it won't run if it's 
@@ -19,4 +29,4 @@ def main():
 # "pythonic" way tostructure an executable
 # program in Python
 if __name__ == "__main__":
-    main()
+   main()
