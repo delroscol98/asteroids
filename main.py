@@ -2,6 +2,7 @@
 # the open-source pygame libary
 # throughout this file
 import pygame
+import sys
 
 # import everything from the module
 # constants.py into the current file
@@ -18,11 +19,7 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    
     clock = pygame.time.Clock()
-    dt = 0
-    x = SCREEN_WIDTH / 2
-    y = SCREEN_HEIGHT / 2
     
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -30,23 +27,35 @@ def main():
 
     Asteroid.containers = (updatable, drawable, asteroids)
     AsteroidField.containers = (updatable)
-    Player.containers = (updatable, drawable)
-
     asteroid_field = AsteroidField()
-    player = Player(x, y)
+    
+    Player.containers = (updatable, drawable)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    
+    dt = 0
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        
+        updatable.update(dt)
+        
+        for el in asteroids:
+            if el.collides_with(player):
+                print("Game over!")
+                sys.exit(0)
+
         pygame.Surface.fill(screen, (0, 0, 0))
+        
         for el in drawable:
             el.draw(screen)
+        
         pygame.display.flip()
 
         # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
-        updatable.update(dt)
+
 # this line ensures the main() function
 # is only called when this file is
 # run directly; it won't run if it's 
