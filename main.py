@@ -38,6 +38,9 @@ def main():
     
     dt = 0
 
+    score_value = 0
+    font = pygame.font.Font("freesansbold.ttf", 32)
+   
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -47,7 +50,7 @@ def main():
         
         for asteroid in asteroids:
             if asteroid.collides_with(player):
-                print("Game over!")
+                print(f"Game over! Your score was {int(score_value)}")
                 sys.exit(0)
 
         for asteroid in asteroids:
@@ -55,10 +58,15 @@ def main():
                 if shot.collides_with(asteroid):
                     asteroid.split()
                     shot.kill()
+                    score_value += 1
             
 
         pygame.Surface.fill(screen, (0, 0, 0))
+
+        score_text = font.render(f"Score: {int(score_value)}", True, (255, 255, 255))
         
+        screen.blit(score_text, (10, 10))
+
         for el in drawable:
             el.draw(screen)
         
