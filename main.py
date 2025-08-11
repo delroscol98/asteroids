@@ -38,6 +38,10 @@ def main():
 
     score_value = 0
     font = pygame.font.Font("freesansbold.ttf", 32)
+
+    background_image_path = "./images/space_bg.jpg"
+    background_image = pygame.image.load(background_image_path)
+    background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
    
     while True:
         for event in pygame.event.get():
@@ -59,7 +63,8 @@ def main():
                     score_value += 1
             
 
-        pygame.Surface.fill(screen, (0, 0, 0))
+        # pygame.Surface.fill(screen, (0, 0, 0))
+        screen.blit(background_image, (0, 0))
 
         score_text = font.render(f"Score: {int(score_value)}", True, (255, 255, 255))
         
