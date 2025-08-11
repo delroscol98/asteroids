@@ -9,21 +9,16 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0 
         self.cooldown_timer = 0
-        self.image = None
-        self.image_center = None
 
-    def spaceship(self):
-        image_path = "./images/spaceship.png"
-        self.image = pygame.image.load(image_path).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (self.radius * 2, self.radius * 2))
-        self.image = pygame.transform.rotate(self.image, -self.rotation)
-        
-        self.image_center = self.image.get_rect()
-        self.image_center.center = (self.position.x, self.position.y)
- 
     def draw(self, screen):
-        self.spaceship()
-        screen.blit(self.image, self.image_center)
+        image_path = "./images/spaceship.png"
+        image = pygame.image.load(image_path).convert_alpha()
+        image = pygame.transform.scale(image, (self.radius * 2, self.radius * 2))
+        image = pygame.transform.rotate(image, -self.rotation)
+        
+        image_center = image.get_rect()
+        image_center.center = (self.position.x, self.position.y)
+        screen.blit(image, image_center)
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
