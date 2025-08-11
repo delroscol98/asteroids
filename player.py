@@ -47,6 +47,6 @@ class Player(CircleShape):
     def shoot(self, dt):
         if self.cooldown_timer > 0:
             return
-        shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
+        shot = Shot(self.position.x, self.position.y, SHOT_RADIUS, self.rotation)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
         self.cooldown_timer = PLAYER_SHOOT_COOLDOWN
